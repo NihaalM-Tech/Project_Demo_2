@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Midhun! 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --ink:#3b2f4a; --soft:#7a6b8a; --a:#ffd9c7;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{
+  background:#fff8f1;color:var(--ink);
+  font-family:'Caveat','Segoe Print',cursive;
+  overflow:hidden;position:relative;
+}
+.blob{position:fixed;border-radius:50%;filter:blur(40px);opacity:.75;transition:background 1s;z-index:0}
+.b1{width:70vmin;height:70vmin;left:-20vmin;top:-10vmin;background:var(--a)}
+.b2{width:60vmin;height:60vmin;right:-18vmin;bottom:-8vmin;background:#d9f2e6}
+#app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:16px 18px 20px;max-width:520px;margin:0 auto}
+header{display:flex;align-items:center;gap:12px}
+.track{flex:1;height:8px;border-radius:8px;background:rgba(59,47,74,.12);position:relative}
+.fill{height:100%;border-radius:8px;background:#ff9d76;width:0;transition:width .8s cubic-bezier(.6,.1,.2,1)}
+.scooter{position:absolute;top:-17px;left:0;font-size:26px;transition:left .8s cubic-bezier(.6,.1,.2,1);transform:scaleX(-1)}
+#lvl{font:700 18px 'Caveat','Segoe Print',cursive;color:var(--soft);white-space:nowrap}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:14px 0}
+.card{
+  width:100%;background:#fffdf9;border:2px solid var(--ink);border-radius:26px 26px 26px 6px;
+  padding:26px 22px 24px;box-shadow:7px 7px 0 var(--a);
+  transform:rotate(-1.4deg);animation:pop .6s cubic-bezier(.2,1.3,.4,1) both;
+}
+@keyframes pop{from{opacity:0;transform:translateY(30px) rotate(3deg) scale(.94)}to{opacity:1;transform:translateY(0) rotate(-1.4deg) scale(1)}}
+.tag{display:inline-block;font:700 18px 'Caveat','Segoe Print',cursive;background:var(--a);padding:5px 10px;border-radius:20px;border:1.5px solid var(--ink)}
+h1{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;font-size:clamp(30px,9.5vw,44px);line-height:1.08;margin:16px 0 12px}
+p{font-size:clamp(21px,6vw,26px);line-height:1.3;margin:0;font-weight:500}
+.gift{display:block;margin:10px auto 0;font-size:88px;background:none;border:0;cursor:pointer;line-height:1;padding:6px}
+.shake{animation:shake .45s}
+@keyframes shake{25%{transform:rotate(-14deg) scale(1.1)}50%{transform:rotate(12deg) scale(1.15)}75%{transform:rotate(-8deg)}}
+.hint{text-align:center;font:700 20px 'Caveat','Segoe Print',cursive;color:var(--soft);margin-top:6px}
+.coupon{margin-top:16px;border:2.5px dashed var(--ink);border-radius:16px;padding:14px 14px 12px;background:#fff3d6;text-align:center;animation:pop .6s both}
+.coupon b{font-family:'Fraunces',Georgia,serif;font-size:22px;display:block}
+.coupon span{font-size:22px;display:block;margin-top:4px}
+.sign{margin-top:14px;font-size:28px;font-weight:700;text-align:right}
+#next{
+  display:block;width:100%;border:2px solid var(--ink);background:#ff9d76;color:var(--ink);
+  font:700 26px 'Caveat','Segoe Print',cursive;padding:12px;border-radius:18px;
+  box-shadow:0 5px 0 var(--ink);cursor:pointer;transition:transform .1s,box-shadow .1s;
+}
+#next:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+#next.hide{visibility:hidden}
+#c{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<canvas id="c"></canvas>
+<div id="app">
+  <header>
+    <div class="track"><div class="fill" id="fill"></div><span class="scooter" id="sc">🛵</span></div>
+    <span id="lvl">LEVEL 0/5</span>
+  </header>
+  <main id="stage"></main>
+  <button id="next">Launch 🚀</button>
+</div>
+<script>
+var L=[
+ {c:'#ffe0cf',t:'FOR MIDHUN',h:'Hey Midhun! 👋',p:'I made a little something just for you. Ready? Tap the button and let’s begin.',b:'Open it 💌'},
+ {c:'#ffd9e2',t:'LEVEL 1 · THE BIG DAY',h:'Happy Birthday, Midhun! 🎂',p:'Another year older, same legend. Today is all yours: no deadlines, no bugs, no bad vibes. Just cake, chill and good times. Let’s go!',b:'Next level →',boom:1},
+ {c:'#d9f2e6',t:'LEVEL 2 · THE FRIEND',h:'Thank you for being you 🤝',p:'You care without making a show of it. You buy me food and never ask for anything back. Those scooter rides to college and the shops nearby, those walks side by side at every event… that’s what a real pal looks like. I’m lucky to have you.',b:'Keep going →'},
+ {c:'#d8e8ff',t:'LEVEL 3 · YOUR YEAR AHEAD',h:'You’ve got this, bro 💪',p:'You work hard and never make a fuss about it, and I’m really proud of you. I hope this year brings you everything you’re chasing: big wins at work, good news all the time, and lots of time to chill with your people.',b:'Almost there →'},
+ {c:'#ece0ff',t:'LEVEL 4 · THE FUTURE',h:'The best is yet to come ✨',p:'I wish you success, peace, great health and people who love you the way you love others. May every dream you’ve been quietly chasing finally come true. Wherever life takes you, I’ve got your back.',b:'One last level →'},
+ {c:'#fff0b8',t:'FINAL LEVEL · SURPRISE',h:'One last thing… 🎁',gift:1}
+];
+var i=0,taps=0,$=function(x){return document.getElementById(x)};
+var stage=$('stage'),btn=$('next');
+
+function render(){
+  var d=L[i];
+  document.documentElement.style.setProperty('--a',d.c);
+  var body=d.gift
+   ?'<div class="hint">tap the gift 3 times</div><button class="gift" id="g" aria-label="gift">🎁</button>'
+   :'<p>'+d.p+'</p>';
+  stage.innerHTML='<article class="card"><span class="tag">'+d.t+'</span><h1>'+d.h+'</h1>'+body+'</article>';
+  $('lvl').textContent=(i===5?'FINAL':'LEVEL '+i+'/5');
+  var pct=i/5;
+  $('fill').style.width=(pct*100)+'%';
+  $('sc').style.left='calc('+pct+' * (100% - 28px))';
+  if(d.gift){btn.className='hide';taps=0;$('g').onclick=tap}
+  else{btn.className='';btn.textContent=d.b}
+  if(d.boom)confetti(70);
+}
+function tap(){
+  var g=$('g');taps++;
+  g.classList.remove('shake');void g.offsetWidth;g.classList.add('shake');
+  if(navigator.vibrate)try{navigator.vibrate(30)}catch(e){}
+  if(taps>=3)openGift();
+}
+function openGift(){
+  confetti(220);
+  stage.querySelector('.card').innerHTML=
+   '<span class="tag">YOUR GIFT 🎉</span><h1>Happy Birthday, Midhun!</h1>'+
+   '<p>Thank you for every ride, every meal and every walk. Here’s something for you:</p>'+
+   '<div class="coupon"><b>🍔 FOOD TREAT COUPON</b><span>Valid for: 1 treat of your choice</span><span>Redeem: anytime, just say the word</span><span>This time, you don’t pay 😄</span></div>'+
+   '<div class="sign">from your dear friend,<br>Nihaal 💛</div>';
+  btn.className='';btn.textContent='Replay ↺';
+}
+btn.onclick=function(){
+  if(i===5&&btn.textContent.indexOf('Replay')===0){i=0}
+  else if(i<5){i++}
+  render();
+};
+
+/* confetti */
+var cv=$('c'),cx=cv.getContext('2d'),ps=[],run=0;
+function fit(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}
+fit();addEventListener('resize',fit);
+function confetti(n){
+  var cols=['#ff9d76','#ffd166','#7bd3b0','#8ab6ff','#c3a6ff','#ff9ec0'],w=cv.width,h=cv.height;
+  for(var k=0;k<n;k++)ps.push({x:w/2,y:h*.55,vx:(Math.random()-.5)*18*devicePixelRatio,vy:-(6+Math.random()*14)*devicePixelRatio,
+    s:(5+Math.random()*7)*devicePixelRatio,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[k%6],life:130+Math.random()*60});
+  if(!run){run=1;requestAnimationFrame(tick)}
+}
+function tick(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  ps=ps.filter(function(p){return p.life>0&&p.y<cv.height+20});
+  ps.forEach(function(p){
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.45*devicePixelRatio;p.vx*=.99;p.r+=p.vr;p.life--;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore();
+  });
+  if(ps.length)requestAnimationFrame(tick);else run=0;
+}
+i=0;
+(function(){var d=L[0];document.documentElement.style.setProperty('--a',d.c);
+stage.innerHTML='<article class="card"><span class="tag">'+d.t+'</span><h1>'+d.h+'</h1><p>'+d.p+'</p></article>';
+$('sc').style.left='0px'})();
+</script>
+</body>
+</html>
